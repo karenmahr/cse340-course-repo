@@ -1,3 +1,4 @@
+
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -44,9 +45,6 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
-/**
- * Start the server
- */
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

@@ -7,8 +7,8 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon project/server.js",
-    "start": "node project/server.js"
+    "dev": "nodemon",
+    "start": "node server.js"
   },
   "dependencies": {
     "ejs": "^5.0.2",
