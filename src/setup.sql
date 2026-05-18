@@ -42,3 +42,17 @@ VALUES
 (3, 'Community Health Fair', 'Providing free health resources.', 'Fort Collins', '2026-07-25');
 
 SELECT * FROM service_projects;
+
+CREATE TABLE categories(
+    categories_id SERIAL PRIMARY KEY,
+    categories_name VARCHAR(150) NOT NULL;
+)
+
+INSERT INTO categories (categories_id, categories_name)
+VALUES
+("Environmental"),
+("Educational"),
+("Community Service"),
+("Health and Wellness");
+
+SELECT * FROM categories;
