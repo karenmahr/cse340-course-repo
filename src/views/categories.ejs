@@ -4,11 +4,13 @@
         <h1>Service Project Categories</h1>
 
         <ul>
-            <% categories.forEach(categories=> { %>
+            <% categories.forEach(category=> { %>
                 <li>
-                <%= categories.categories_name %>
-            </li>
-            <% }); %>
+                    <a href="/category/<%= category.categories_id %>">
+                        <%= category.categories_name %>
+                    </a>
+                </li>
+                <% }); %>
         </ul>
 
     </main>
