@@ -1,15 +1,22 @@
 <%- include('partials/header') %>
     <main>
-        <h1>Projects</h1>
+        <h1>
+            <%= title %>
+        </h1>
         <h2>Upcoming Service Projects</h2>
         <ul>
-            <% projects.forEach(service_project=> { %>
+            <% projects.forEach(project=> { %>
                 <li>
-                    <%= service_project.date.toISOString().split('T')[0] %>
-                    <%= service_project.title %>
-                    (<%= service_project.organization_name %>)
+                    <a href="/project/<%= project.project_id %>">
+                        <strong>
+                            <%= project.title %>
+                        </strong>
+                    </a>
+                    <a href="/organization/<%= project.organization_id %>">
+                        <%= project.organization_name %>
+                    </a>
                 </li>
                 <% }); %>
         </ul>
     </main>
-<%- include('partials/footer') %>
+    <%- include('partials/footer') %>
