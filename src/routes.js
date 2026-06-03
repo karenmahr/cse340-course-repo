@@ -1,8 +1,30 @@
 import express from 'express';
-import { showOrganizationDetailsPage } from './controllers/organizations.js';
-import { showProjectDetailsPage } from './controllers/projects.js';
-import { showCategoryDetailsPage } from './controllers/categories.js';
-
+import { 
+    showProjectDetailsPage, 
+    showNewProjectForm, 
+    processNewProjectForm, 
+    projectValidation, 
+    processEditProjectForm,
+    showEditProjectForm } 
+    from './controllers/projects.js';
+import { 
+    showCategoryDetailsPage,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    categoryValidationRules,
+    processEditCategoryForm,
+    showEditCategoryForm
+ } from './controllers/categories.js';
+import {
+    showOrganizationDetailsPage,
+    showNewOrganizationForm,
+    processNewOrganizationForm,
+    organizationValidation,
+    showEditOrganizationForm,
+    processEditOrganizationForm,
+} from './controllers/organizations.js';
 
 import { showHomePage } from './controllers/index.js';
 import { showOrganizationsPage } from './controllers/organizations.js';
@@ -20,5 +42,21 @@ router.get('/test-error', testErrorPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/category/:id', showCategoryDetailsPage);
+router.get('/new-organization', showNewOrganizationForm);
+router.get('/edit-organization/:id', showEditOrganizationForm);
+router.get('/new-project', showNewProjectForm);
+router.get('/assign-categories/:projectId', showAssignCategoriesForm);
+router.get('/edit-project/:id', showEditProjectForm );
+router.get('/new-category', showNewCategoryForm);
+router.get('/edit-category/:id', showEditCategoryForm);
 
+router.post('/new-project', projectValidation, processNewProjectForm);
+router.post('/new-organization', organizationValidation, processNewOrganizationForm);
+router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+router.post('/edit-project/:id', processEditProjectForm);
+router.post('/new-category', categoryValidationRules, processNewCategoryForm);
+router.post('/edit-category/:id',categoryValidationRules,processEditCategoryForm);
+
+ 
 export default router;
