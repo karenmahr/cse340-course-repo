@@ -2,13 +2,14 @@
 
     <main>
         <h1>Service Project Categories</h1>
-
         <ul>
             <% categories.forEach(category=> { %>
                 <li>
-                    <a href="/category/<%= category.categories_id %>">
-                        <%= category.categories_name %>
-                    </a>
+                    <% if (user && user.role_name==='admin' ) { %>
+                        <a href="/category/<%= category.categories_id %>">
+                            <%= category.categories_name %>
+                        </a>
+                        <% } %>
                 </li>
                 <% }); %>
         </ul>
