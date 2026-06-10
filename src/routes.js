@@ -35,7 +35,8 @@ import {
     processLoginForm,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showRegisteredUsersPage
 } from './controllers/users.js';
 
 
@@ -67,6 +68,7 @@ router.get('/login', showLoginForm);
 router.get('/logout', processLogout);
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
+router.get('/registered-users', requireRole('admin'), showRegisteredUsersPage);
 
 router.post('/new-project', projectValidation, processNewProjectForm);
 router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);

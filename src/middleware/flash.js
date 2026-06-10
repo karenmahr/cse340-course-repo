@@ -96,3 +96,4 @@ const flash = (req, res, next) => {
 };
 
 export default flash;
+

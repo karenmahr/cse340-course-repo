@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { createUser, authenticateUser } from '../models/users.js';
+import { registeredUsers } from '../models/users.js';
 
 const showUserRegistrationForm = async (req, res) => {
     res.render('register', { title: 'Register' });
@@ -100,6 +101,23 @@ const requireRole = (role) => {
     };
 };
 
+const showRegisteredUsersPage = async (req, res) => {
+    try {
+        const users = await registeredUsers();
+
+        res.render('registered-users', {
+            title: 'Registered Users',
+            users
+        });
+    } catch (error) {
+        console.error('Error loading users:', error);
+
+        req.flash('error', 'Unable to load users.');
+
+        res.redirect('/dashboard');
+    }
+};
+
 
 export {
     showUserRegistrationForm,
@@ -109,5 +127,6 @@ export {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showRegisteredUsersPage
 };
