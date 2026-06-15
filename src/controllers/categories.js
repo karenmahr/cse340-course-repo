@@ -50,8 +50,6 @@ const showAssignCategoriesForm = async (req, res) => {
 const processAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const selectedCategoryIds = req.body.categoryIds || [];
-
-    // Ensure selectedCategoryIds is an array
     const categoryIdsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds];
     await updateCategoryAssignments(projectId, categoryIdsArray);
     req.flash('success', 'Categories updated successfully.');
@@ -65,10 +63,8 @@ const showNewCategoryForm = (req, res) => {
 };
 
 const processNewCategoryForm = async (req, res) => {
-    // Check for validation errors
     const results = validationResult(req);
     if (!results.isEmpty()) {
-        // Validation failed - loop through errors
         results.array().forEach((error) => {
             req.flash('error', error.msg);
         });

@@ -37,13 +37,9 @@ const showProjectsPage = async (req, res) => {
 const showProjectDetailsPage = async (req, res, next) => {
     try {
         const projectId = req.params.id;
-
         const project = await getProjectDetails(projectId);
-
         const categories = await getCategoriesByProjectId(projectId);
-
         const title = project.title;
-
         const user = req.session?.user;
 
         let isVolunteer = false;
@@ -78,19 +74,15 @@ const showNewProjectForm = async (req, res) => {
 }
 
 const processNewProjectForm = async (req, res) => {
-
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
         errors.array().forEach((error) => {
             req.flash('error', error.msg);
         });
-
         return res.redirect('/new-project');
     }
 
     const { title, description, location, date, organizationId } = req.body;
-
     try {
         const newProjectId = await createProject(
             title,
@@ -113,10 +105,8 @@ const processNewProjectForm = async (req, res) => {
 
 const showEditProjectForm = async (req, res) => {
     const projectId = req.params.id;
-
     const projectDetails = await getProjectDetails(projectId);
     const organizations = await getAllOrganizations();
-
     const title = 'Edit Project';
 
     res.render('edit-project', {
@@ -136,9 +126,7 @@ const processEditProjectForm = async (req, res) => {
 
         return res.redirect('/edit-project/' + req.params.id);
     }
-
     const projectId = req.params.id;
-
     const { title, description, location, date, organizationId} = req.body;
 
     await updateProject( projectId, title, description, location, date, organizationId);

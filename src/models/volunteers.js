@@ -39,7 +39,6 @@ const getVolunteer = async (user_id) => {
     return result.rows;
 };
 
-// Esta función la necesitas en tu getProjectDetails Controller
 const checkVolunteer = async (user_id, project_id) => {
     const query = `
         SELECT 1 FROM public.registered_users 
