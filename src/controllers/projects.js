@@ -3,6 +3,7 @@ import { getUpcomingProjects, createProject, getProjectDetails, updateProject } 
 import { getAllOrganizations } from '../models/organizations.js';
 import { getCategoriesByProjectId } from '../models/categories.js';
 import { body, validationResult } from 'express-validator';
+import { checkVolunteer } from '../models/volunteers.js';
 
 const projectValidation = [
     body('title')
@@ -33,16 +34,40 @@ const showProjectsPage = async (req, res) => {
     res.render('projects', { title, projects });
 };
 
-const showProjectDetailsPage = async (req, res) => {
-    const projectId = req.params.id;
+const showProjectDetailsPage = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
 
-    const project = await getProjectDetails(projectId);
+        const project = await getProjectDetails(projectId);
 
-    const categories = await getCategoriesByProjectId(projectId);
+        const categories = await getCategoriesByProjectId(projectId);
 
-    const title = project.title;
+        const title = project.title;
 
-    res.render('project', { title, project, categories });
+        const user = req.session?.user;
+
+        let isVolunteer = false;
+
+        if (user) {
+            const volunteerRecord = await checkVolunteer(
+                user.user_id,
+                projectId
+            );
+
+            isVolunteer = volunteerRecord.length > 0;
+        }
+
+        res.render('project', {
+            title,
+            project,
+            categories,
+            isLoggedIn: !!user,
+            isVolunteer
+        });
+
+    } catch (error) {
+        next(error);
+    }
 };
 
 const showNewProjectForm = async (req, res) => {

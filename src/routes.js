@@ -39,6 +39,13 @@ import {
     showRegisteredUsersPage
 } from './controllers/users.js';
 
+import {
+    getProjectDetails,
+    addVolunteerController,
+    removeVolunteerController,
+    getDashboard
+} from './controllers/volunteers.js';
+
 
 import { showHomePage } from './controllers/index.js';
 import { showOrganizationsPage } from './controllers/organizations.js';
@@ -66,9 +73,13 @@ router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm);
 router.get('/register', showUserRegistrationForm);
 router.get('/login', showLoginForm);
 router.get('/logout', processLogout);
-router.get('/dashboard', requireLogin, showDashboard);
 router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
 router.get('/registered-users', requireRole('admin'), showRegisteredUsersPage);
+router.get('/dashboard', requireLogin, getDashboard);
+router.get('/projects/:id', getProjectDetails);
+router.get('/projects/:id/volunteer', requireLogin, addVolunteerController);
+router.get('/projects/:id/unvolunteer', requireLogin, removeVolunteerController);
+
 
 router.post('/new-project', projectValidation, processNewProjectForm);
 router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
@@ -79,7 +90,7 @@ router.post('/new-cat egory', requireRole('admin'), categoryValidationRules, pro
 router.post('/edit-category/:id', requireRole('admin'), categoryValidationRules, processEditCategoryForm);
 router.post('/register', processUserRegistrationForm);
 router.post('/login', processLoginForm);
-router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm); 
+router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
 
 
 export default router;

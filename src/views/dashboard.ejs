@@ -1,15 +1,53 @@
 <%- include('partials/header') %>
 
     <main>
+
         <h1>
             <%= title %>
         </h1>
 
         <h2>Dashboard</h2>
-        <p>Name: <%= name %>
+
+        <p>Name: <%= user.name %>
         </p>
-        <p>Username: <%= email %>
+        <p>Username: <%= user.email %>
         </p>
+
+        <h2>Your Volunteered Projects</h2>
+
+        <% if (projects && projects.length> 0) { %>
+
+            <ul>
+
+                <% projects.forEach(project=> { %>
+
+                    <li style="margin-bottom:15px;">
+
+                        <a href="/projects/<%= project.project_id %>">
+                            <strong>
+                                <%= project.title %>
+                            </strong>
+                        </a>
+
+                        - <%= project.organization_name %>
+
+                            |
+
+                            <a href="/projects/<%= project.project_id %>/unvolunteer?from=dashboard">
+                                Remove Volunteer
+                            </a>
+
+                    </li>
+
+                    <% }) %>
+
+            </ul>
+
+            <% } else { %>
+
+                <p>You haven't signed up for any volunteer projects yet.</p>
+
+                <% } %>
 
     </main>
 
